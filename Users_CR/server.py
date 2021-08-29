@@ -29,9 +29,39 @@ def create_user():
         "lname": request.form["lname"],
         "email": request.form["email"]
         }
-    User.add_user(data)
+    id = User.add_user(data)
+    return redirect(f"/users/{id}")
 
+@app.route("/users/<int:id>")
+def show_user(id):
+    data = {"id": id}
+    user = User.get_by_id(data)
+    return render_template("show_user.html", user=user)
+
+@app.route("/users/<int:id>/delete")
+def delete_user(id):
+    data = {"id": id}
+    User.delete_by_id(data)
     return redirect("/users")
+
+@app.route("/users/<int:id>/edit", methods=["GET", "POST"])
+def edit_user(id):
+    if request.method == "GET":
+        data = {"id": id}
+        user = User.get_by_id(data)
+        return render_template("edit_user.html", user=user)
+    elif request.method == "POST":
+        data = {
+            "fname": request.form["fname"],
+            "lname": request.form["lname"],
+            "email": request.form["email"],
+            "id" : id
+        }
+        User.edit_user(data)
+
+        return redirect(f"/users/{id}")
+    else:
+        return redirect("/")
 
 if __name__=="__main__":
     app.run(debug=True)
