@@ -1,5 +1,6 @@
 # import the function that will return an instance of a connection
-from mysqlconnection import connectToMySQL
+from flask_app.config.mysqlconnection import connectToMySQL
+# burger.py
 
 class User:
     def __init__(self, data):
