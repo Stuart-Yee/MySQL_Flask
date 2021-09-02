@@ -5,6 +5,38 @@
     <title>New Ninja</title>
 </head>
 <body>
-
+    <form action="ninjas/save" method="post">
+        <table>
+            <tr>
+                <td>Dojo:</td>
+                <td>
+                    <select name="dojo_id">
+                        {% for dojo in dojos: %}
+                            <option value="{{dojo.id}}">{{dojo.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td><input name="fname"></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input name="lname"></td>
+            </tr>
+            <tr>
+                <td>Age:</td>
+                <td><input name="age"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button>Create</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a href="/dojos">Home</a>
 </body>
 </html>

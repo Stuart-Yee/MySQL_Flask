@@ -19,8 +19,9 @@
                     </form>
                 </td>
                 <td>
-                    PLACEHOLDER
-                    Loop through Dojos
+                    {% for dojo in dojos:%}
+                    <p><a href="/dojos/{{dojo.id}}">{{dojo.name}}</a></p>
+                    {% endfor %}
 
                     <a href="/ninjas">Add Ninja</a>
                 </td>
