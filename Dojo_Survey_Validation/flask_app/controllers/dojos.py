@@ -20,10 +20,13 @@ def form_capture():
         "comment": request.form["comment"]
     }
     #Want to capture the new id upon creation
-    new_id = Dojo.create_dojo(data)
+    if Dojo.validate_dojo(request.form):
+        new_id = Dojo.create_dojo(data)
 
-    #Using new id to navigate to results page
-    return redirect("/result/" + str(new_id))
+        #Using new id to navigate to results page
+        return redirect("/result/" + str(new_id))
+    else:
+        return redirect("/")
 
 @app.route("/result/<int:id>")
 def landing(id):

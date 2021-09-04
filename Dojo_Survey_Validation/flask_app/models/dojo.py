@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash
 
 class Dojo:
     def __init__(self, data):
@@ -31,3 +32,14 @@ class Dojo:
         results = connectToMySQL('dojo_survey_schema').query_db(query, data)
         dojo = cls(results[0])
         return dojo
+
+    @staticmethod
+    def validate_dojo(dojo): #returns boolean value and sets flash message if needed
+        is_valid = True
+        if len(dojo["name"]) < 1:
+            flash("Please enter your name!")
+            is_valid = False
+        if len(dojo["comment"]) < 10:
+            flash("Comment must be at least 10 characters")
+            is_valid = False
+        return is_valid
