@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Email Validation</title>
+</head>
+<body>
+<div class="container">
+
+
+
+<form action="/email/save" method="post">
+    <div class="form-group">
+
+        {% with messages = get_flashed_messages(category_filter=["email"]) %}
+            {% if messages: %}
+                {% for message in messages: %}
+                    <div class="alert alert-danger" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <label for="exampleFormControlInput1">Email Address:</label>
+
+        <input class="form-control" id="exampleFormControlInput1" placeholder="username@host.etc" name="email">
+    </div>
+
+    <button class="btn btn-info">Submit!</button>
+
+
+
+</form>
+</div>
+
+</body>
+</html>
