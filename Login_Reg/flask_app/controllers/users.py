@@ -31,7 +31,7 @@ def login():
         session["user_id"] = user.id
         session["logged_in"] = True
         session["user_name"] = user.first_name + " " + user.last_name
-        return redirect("/success", user)
+        return redirect("/success")
     else:
         return redirect("/")
 
@@ -55,8 +55,27 @@ def create_user():
     print(User.validate_registration(data))
     # End diagnostic print statements
 
+    if User.validate_registration(data):
+        pw_hash = bcrypt.generate_password_hash(request.form["password"])
+        data["password"] = pw_hash
+        new_id = User.register_user(data)
+        session["user_id"] = new_id
+        session["logged_in"] = True
+        session["user_name"] = data["first_name"] + " " + data["last_name"]
+        return redirect("/success")
+
     return redirect("/register")
 
 @app.route("/success")
 def success():
-    return render_template("success.html")
+    if session["logged_in"] == True:
+        return render_template("success.html")
+    else:
+        return redirect("/")
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session["user_id"] = None
+    session["user_name"] = None
+    session["logged_in"] = False
+    return redirect("/")

@@ -8,11 +8,14 @@
 
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/stylesheet.css')}}">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hello {{session["user_name"]}} !</title>
 </head>
 <body class="text-center">
     <div class="container">
-
+    <h1>Welcome, {{session["user_name"]}}</h1>
+        <form action="/logout" method="post">
+            <button>Logout</button>
+        </form>
     </div>
 
 </body>

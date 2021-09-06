@@ -22,7 +22,7 @@ class User:
 
     @classmethod
     def register_user(cls, data):
-        query = "INSERT INTO users (email, first_name, last_name, fav_movie, subscribed, password, created_at, updated at) VALUES (%(email)s, %(first_name)s, %(last_name)s, %(fav_movie)s, %(subscribed)s, %(password)s, NOW(), NOW());"
+        query = "INSERT INTO users (email, first_name, last_name, fav_movie, subscribed, password, created_at, updated_at) VALUES (%(email)s, %(first_name)s, %(last_name)s, %(fav_movie)s, %(subscribed)s, %(password)s, NOW(), NOW());"
         return connectToMySQL("simflario").query_db(query, data)
 
     @classmethod
@@ -53,7 +53,7 @@ class User:
             user = cls(results[0])
             return user
         else:
-            return None
+            return False
 
     @staticmethod
     def validate_registration(user):
@@ -86,7 +86,7 @@ class User:
     @staticmethod
     def validate_login(user):
         valid_login = True
-        if user["email"] not in User.get_all_emails():
+        if not User.find_by_email(user):
             valid_login = False
         else:
             registered_user = User.find_by_email(user)
