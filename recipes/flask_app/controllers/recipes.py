@@ -5,4 +5,7 @@ from flask_app import app
 def dashboard():
     #todo if logged in, pull in all recipes and render html
     #todo if not logged in, redirect to /
-    return render_template("dashboard.html")
+    if session["logged_in"]:
+        return render_template("dashboard.html")
+    else:
+        return redirect("/")
