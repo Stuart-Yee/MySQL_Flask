@@ -2,6 +2,7 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from flask import Flask, flash
 from flask_bcrypt import Bcrypt
 from flask_app import app
+from flask_app.models.recipe import Recipe
 import re
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') #email format
@@ -18,6 +19,7 @@ class User:
         self.created_at = data["created_at"]
         self.updated_at = data["updated_at"]
 
+    #query methods
     @classmethod
     def register_user(cls, data):
         query = "INSERT INTO users (email, first_name, last_name, password, created_at, updated_at) VALUES (%(email)s, %(first_name)s, %(last_name)s, %(password)s, NOW(), NOW());"
@@ -54,6 +56,7 @@ class User:
         else:
             return False
 
+    #Validations
     @staticmethod
     def validate_registration(user):
         valid_user = True
