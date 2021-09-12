@@ -23,7 +23,7 @@ def create_friend():
         "occ" : request.form["occ"]
     }
     # We pass the data dictionary into the save method from the Friend class.
-    Friend.save(data)
+    print(Friend.save(data))
     # Don't forget to redirect after saving to the database.
     return redirect('/')
 

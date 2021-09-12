@@ -19,7 +19,8 @@ def registration():
         "The Good, The Bad, The Ugly",
         "American Pie",
         "The Avengers",
-        "Austin Powers"
+        "Austin Powers",
+        "Indiana Jones and the Temple of Doom"
     ]
     return render_template("registration.html", movies=movies)
 
@@ -48,12 +49,7 @@ def create_user():
     if not "fav_movie" in data:
         data["fav_movie"] = None
 
-    # Diagnostic print statements
-    for item in data:
-        print(item, data[item])
 
-    print(User.validate_registration(data))
-    # End diagnostic print statements
 
     if User.validate_registration(data):
         pw_hash = bcrypt.generate_password_hash(request.form["password"])
